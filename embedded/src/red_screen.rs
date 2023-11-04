@@ -26,9 +26,9 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
     pub fn new<RST: OutputPin, D: embedded_hal::delay::DelayUs>(
         lcd_spi_device: LS,
         lcd_dc: DC,
-        mut lcd_rst: RST,
+        lcd_rst: RST,
         touch_spi_device: TS,
-        mut delay: D,
+        delay: D,
     ) -> Self {
         Self {
             ili_9488: Ili9488::new(lcd_spi_device, lcd_dc, lcd_rst, delay),

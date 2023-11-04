@@ -15,7 +15,7 @@ use crate::model;
 const TRENCH: i32 = 38;
 const VERTICAL_OFFSET: i32 = 51;
 
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum Region {
     Top,
     Bottom,
@@ -187,18 +187,15 @@ impl Breadboard {
                     .into_styled(stroke)
                     .draw(display)
                     .unwrap();
-                }
-                if let model::Connection::Bottom(start, end) = row_connection {
-
-
+                } else if let model::Connection::Bottom(start, end) = row_connection {
                     Rectangle::with_corners(
                         Point::new(
                             *start as i32 * self.point_size.0,
-                            VERTICAL_OFFSET + index as i32 * self.point_size.1,
+                            269 - index as i32 * self.point_size.1,
                         ),
                         Point::new(
                             *end as i32 * self.point_size.0,
-                            VERTICAL_OFFSET + (index as i32 + 1) * self.point_size.1,
+                            269 - (index as i32 + 1) * self.point_size.1,
                         ),
                     )
                     .into_styled(fill)
@@ -206,10 +203,10 @@ impl Breadboard {
                     .unwrap();
 
                     Line::new(
-                        Point::new(*start as i32 * self.point_size.0, 0),
+                        Point::new(*start as i32 * self.point_size.0, 320),
                         Point::new(
                             *start as i32 * self.point_size.0,
-                            VERTICAL_OFFSET + (index as i32 + 1) * self.point_size.1,
+                            269 - (index as i32 + 1) * self.point_size.1,
                         ),
                     )
                     .into_styled(stroke)
@@ -220,7 +217,7 @@ impl Breadboard {
                         Point::new(*end as i32 * self.point_size.0, 0),
                         Point::new(
                             *end as i32 * self.point_size.0,
-                            VERTICAL_OFFSET + (index as i32 + 1) * self.point_size.1,
+                            269 - (index as i32 + 1) * self.point_size.1,
                         ),
                     )
                     .into_styled(stroke)
@@ -345,7 +342,7 @@ impl Breadboard {
     }
 
     pub fn hit_test(&self, x: i32, y: i32) -> HitTestResult {
-        let region = if y > VERTICAL_OFFSET + 5 * self.point_size.1 {
+        let region = if y > 160 {
             Region::Bottom
         } else {
             Region::Top

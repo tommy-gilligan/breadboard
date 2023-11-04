@@ -4,7 +4,7 @@ use embedded_graphics_core::prelude::DrawTarget;
 
 use crate::model::Connection;
 use crate::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
-use crate::view::{Breadboard, HitTestResult, SelectionEvent, SelectionEventType};
+use crate::view::{Breadboard, HitTestResult, SelectionEvent, SelectionEventType, Region};
 
 pub struct Controller {
     connections: crate::model::Connections,
@@ -41,32 +41,36 @@ impl Controller {
         T: DrawTarget<Color = Rgb888>,
     {
         if let Some(TouchEvent { x, y, r#type }) = touchscreen.get_touch_event() {
-            if let HitTestResult::HitColumn((region, column)) = self.view.hit_test(x as i32, y as i32) {
-                let selection_event_type = match r#type {
-                    TouchEventType::Start => SelectionEventType::Start,
-                    TouchEventType::Move => SelectionEventType::Update,
-                    TouchEventType::End => SelectionEventType::End,
-                };
-                let selection = self.view.update_selection(SelectionEvent {
-                    region,
-                    column,
-                    r#type: selection_event_type,
-                });
+            let HitTestResult::HitColumn((region, column)) = self.view.hit_test(x as i32, y as i32);
+            let selection_event_type = match r#type {
+                TouchEventType::Start => SelectionEventType::Start,
+                TouchEventType::Move => SelectionEventType::Update,
+                TouchEventType::End => SelectionEventType::End,
+            };
+            let selection = self.view.update_selection(SelectionEvent {
+                region,
+                column,
+                r#type: selection_event_type,
+            });
 
-                match r#type {
-                    TouchEventType::Start => {
-                        self.view.draw(touchscreen, &self.connections);
-                    }
-                    TouchEventType::End => {
-                        let (a, b) = selection.unwrap();
+            match r#type {
+                TouchEventType::Start => {
+                    self.view.draw(touchscreen, &self.connections);
+                }
+                TouchEventType::End => {
+                    let (a, b) = selection.unwrap();
+
+                    if region == Region::Top {
                         self.connections.insert(Connection::Top(a, b + 1));
-                        self.view.draw(touchscreen, &self.connections);
+                    } else {
+                        self.connections.insert(Connection::Bottom(a, b + 1));
                     }
-                    TouchEventType::Move => {
-                        self.view.draw_selection_highlight(touchscreen);
-                    }
-                };
-            }
+                    self.view.draw(touchscreen, &self.connections);
+                }
+                TouchEventType::Move => {
+                    self.view.draw_selection_highlight(touchscreen);
+                }
+            };
         }
     }
 }

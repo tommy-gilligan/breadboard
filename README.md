@@ -13,3 +13,4 @@
 - split out drivers
 - investigate CAD
 - why is it slow?
+- just generally optimize

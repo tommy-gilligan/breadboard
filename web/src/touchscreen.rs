@@ -144,10 +144,6 @@ impl Web {
 
         result
     }
-
-    pub fn flush(&mut self) {
-        self.simulator_display.flush().unwrap();
-    }
 }
 
 impl DrawTarget for Web {
