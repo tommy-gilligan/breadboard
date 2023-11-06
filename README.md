@@ -14,3 +14,5 @@
 - just generally optimize
 - more CI
 - more tests
+- propagate errors
+- making sure only part of the screen is being updated

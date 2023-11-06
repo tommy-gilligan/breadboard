@@ -60,7 +60,7 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
     for RedScreen<LS, TS, DC>
 {
     fn get_touch_event(&mut self) -> Option<TouchEvent> {
-        match crate::xpt2046::convert(self.xpt_2046.get().unwrap()) {
+        match convert(self.xpt_2046.get().unwrap()) {
             Some((x, y)) => {
                 let result = Some(TouchEvent {
                     x,
@@ -89,5 +89,34 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
                 }
             }
         }
+    }
+}
+
+fn convert((x, y): (u16, u16)) -> Option<(u16, u16)> {
+    if x < 250 || y < 230 || x > 4000 || y > 3900 {
+        return None
+    }
+
+    Some(
+        (
+            (x - 250).wrapping_shr(9) * 68,
+            (y - 230).wrapping_shr(9) * 46,
+        )
+    )
+}
+
+mod test {
+    extern crate std;
+
+    #[test]
+    fn test_convert() {
+        assert_eq!(super::convert((250, 230)), Some((0, 0)));
+        assert_eq!(super::convert((3920, 3850)), Some((476, 322)));
+    }
+
+    #[test]
+    fn test_convert_out_of_range() {
+        assert_eq!(super::convert((200, 200)), None);
+        assert_eq!(super::convert((4000, 4000)), None);
     }
 }
