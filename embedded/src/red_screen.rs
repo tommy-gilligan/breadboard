@@ -60,35 +60,33 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
     for RedScreen<LS, TS, DC>
 {
     fn get_touch_event(&mut self) -> Option<TouchEvent> {
-        let (y, x) = self.xpt_2046.get();
+        match crate::xpt2046::convert(self.xpt_2046.get().unwrap()) {
+            Some((x, y)) => {
+                let result = Some(TouchEvent {
+                    x,
+                    y,
+                    r#type: if self.last_touch.is_some() {
+                        TouchEventType::Move
+                    } else {
+                        TouchEventType::Start
+                    },
+                });
+                self.last_touch = Some((x, y));
 
-        if x > 0.0 && y > 0.0 {
-            let x = (480.0 - (x / 320.0) * 480.0) as u16;
-            let y = (320.0 - (y / 240.0) * 320.0) as u16;
+                result
+            },
+            None => {
+                if let Some((last_x, last_y)) = self.last_touch {
+                    self.last_touch = None;
 
-            let result = Some(TouchEvent {
-                x,
-                y,
-                r#type: if self.last_touch.is_some() {
-                    TouchEventType::Move
+                    Some(TouchEvent {
+                        x: last_x,
+                        y: last_y,
+                        r#type: TouchEventType::End,
+                    })
                 } else {
-                    TouchEventType::Start
-                },
-            });
-            self.last_touch = Some((x, y));
-
-            result
-        } else {
-            if let Some((last_x, last_y)) = self.last_touch {
-                self.last_touch = None;
-
-                Some(TouchEvent {
-                    x: last_x,
-                    y: last_y,
-                    r#type: TouchEventType::End,
-                })
-            } else {
-                None
+                    None
+                }
             }
         }
     }

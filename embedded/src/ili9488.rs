@@ -96,7 +96,7 @@ impl<S: embedded_hal::spi::SpiDevice, DC: OutputPin> DrawTarget for Ili9488<S, D
     where
         I: IntoIterator<Item = Pixel<Self::Color>>,
     {
-        for Pixel(coord, color) in pixels.into_iter() {
+        for Pixel(coord, color) in pixels {
             if let Ok((_x @ 0..=479, _y @ 0..=319)) = coord.try_into() {
                 self.cmd8(0x2A); //set column start/end
                 self.data16(coord.x as u16);
@@ -108,9 +108,9 @@ impl<S: embedded_hal::spi::SpiDevice, DC: OutputPin> DrawTarget for Ili9488<S, D
                 let mut a = core::iter::once(RawU24::from(color).into_inner());
                 let rgb = a.next().unwrap();
                 self.data24(
-                    ((rgb & 0x00ff0000) >> 16) as u8,
-                    ((rgb & 0x0000ff00) >> 8) as u8,
-                    (rgb & 0x000000ff) as u8,
+                    ((rgb & 0x00ff_0000) >> 16) as u8,
+                    ((rgb & 0x0000_ff00) >> 8) as u8,
+                    (rgb & 0x0000_00ff) as u8,
                 );
             }
         }

@@ -21,6 +21,7 @@ mod embedded {
     use core::cell::RefCell;
 
     use defmt_rtt as _;
+    use embedded::xpt2046::Xpt2046;
     use embedded_hal::delay::DelayUs;
     use embedded_hal::spi::{Mode, Phase, Polarity};
     use embedded_hal_bus::spi::RefCellDevice;
@@ -100,7 +101,7 @@ mod embedded {
         let spi_1 = spi_1.init(
             &mut pac.RESETS,
             clocks.peripheral_clock.freq(),
-            50u32.MHz(),
+            1u32.MHz(),
             Mode {
                 polarity: Polarity::IdleLow,
                 phase: Phase::CaptureOnFirstTransition,
