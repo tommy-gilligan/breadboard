@@ -240,7 +240,7 @@ impl Breadboard {
                 .build();
 
             Rectangle::new(
-                Point::new(index as i32 * self.point_size.0, 0),
+                Point::new(index * self.point_size.0, 0),
                 Size::new(
                     self.point_size.0.try_into().unwrap(),
                     VERTICAL_OFFSET as u32,
@@ -251,7 +251,7 @@ impl Breadboard {
             .unwrap();
             Rectangle::new(
                 Point::new(
-                    index as i32 * self.point_size.0,
+                    index * self.point_size.0,
                     10 * self.point_size.1 + TRENCH + VERTICAL_OFFSET,
                 ),
                 Size::new(
@@ -271,7 +271,7 @@ impl Breadboard {
                 })
                 .build();
             Rectangle::new(
-                Point::new(index as i32 * self.point_size.0, VERTICAL_OFFSET),
+                Point::new(index * self.point_size.0, VERTICAL_OFFSET),
                 Size::new(
                     self.point_size.0.try_into().unwrap(),
                     5 * self.point_size.1 as u32,
@@ -283,7 +283,7 @@ impl Breadboard {
 
             Rectangle::new(
                 Point::new(
-                    index as i32 * self.point_size.0,
+                    index * self.point_size.0,
                     5 * self.point_size.1 + TRENCH + VERTICAL_OFFSET,
                 ),
                 Size::new(
@@ -337,8 +337,8 @@ impl Breadboard {
                 let destination_index = self.destination_column.as_ref().unwrap().1;
 
                 Some((
-                    start_index.min(destination_index).try_into().unwrap(),
-                    start_index.max(destination_index).try_into().unwrap(),
+                    start_index.min(destination_index),
+                    start_index.max(destination_index),
                 ))
             }
         }
