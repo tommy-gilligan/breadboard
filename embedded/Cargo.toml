@@ -5,6 +5,13 @@ version = "0.1.0"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
+embedded-graphics-core = { version = "0.3" }
+embedded-graphics = { version = "0.7.1" }
+embedded-hal = { version = "1.0.0-rc.1" }
+embedded-hal-bus = { version = "0.1.0-rc.1" }
+application = { path = ".." }
+
+[target.'cfg(target_os = "none")'.dependencies]
 cortex-m = "0.7"
 cortex-m-rt = "0.7"
 defmt = "0.3"
@@ -13,9 +20,3 @@ fugit = "0.3.7"
 panic-probe = { version = "0.3", features = ["print-defmt"] }
 rp2040-boot2 = "0.3"
 rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
-
-embedded-graphics-core = { version = "0.3" }
-embedded-graphics = { version = "0.7.1" }
-embedded-hal = { version = "1.0.0-rc.1" }
-embedded-hal-bus = { version = "0.1.0-rc.1" }
-application = { path = "..", features = ["embedded"] }
