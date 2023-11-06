@@ -4,7 +4,7 @@ use embedded_graphics_core::prelude::DrawTarget;
 
 use crate::model::Connection;
 use crate::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
-use crate::view::{Breadboard, HitTestResult, SelectionEvent, SelectionEventType, Region};
+use crate::view::{Breadboard, HitTestResult, Region, SelectionEvent, SelectionEventType};
 
 pub struct Controller {
     connections: crate::model::Connections,

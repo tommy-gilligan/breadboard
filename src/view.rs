@@ -92,10 +92,7 @@ impl Breadboard {
 
             Rectangle::with_corners(
                 Point::new(left * self.point_size.0, 0),
-                Point::new(
-                    (right + 1) * self.point_size.0,
-                    self.point_size.1,
-                ),
+                Point::new((right + 1) * self.point_size.0, self.point_size.1),
             )
             .into_styled(fill)
             .draw(display)
@@ -244,7 +241,10 @@ impl Breadboard {
 
             Rectangle::new(
                 Point::new(index as i32 * self.point_size.0, 0),
-                Size::new(self.point_size.0.try_into().unwrap(), VERTICAL_OFFSET as u32),
+                Size::new(
+                    self.point_size.0.try_into().unwrap(),
+                    VERTICAL_OFFSET as u32,
+                ),
             )
             .into_styled(fill)
             .draw(display)
@@ -254,7 +254,10 @@ impl Breadboard {
                     index as i32 * self.point_size.0,
                     10 * self.point_size.1 + TRENCH + VERTICAL_OFFSET,
                 ),
-                Size::new(self.point_size.0.try_into().unwrap(), VERTICAL_OFFSET as u32),
+                Size::new(
+                    self.point_size.0.try_into().unwrap(),
+                    VERTICAL_OFFSET as u32,
+                ),
             )
             .into_styled(fill)
             .draw(display)
@@ -342,11 +345,7 @@ impl Breadboard {
     }
 
     pub fn hit_test(&self, x: i32, y: i32) -> HitTestResult {
-        let region = if y > 160 {
-            Region::Bottom
-        } else {
-            Region::Top
-        };
+        let region = if y > 160 { Region::Bottom } else { Region::Top };
 
         HitTestResult::HitColumn((region, x as usize / self.point_size.0 as usize))
     }

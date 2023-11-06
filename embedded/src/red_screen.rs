@@ -1,7 +1,4 @@
-use crate::{
-    ili9488::Ili9488,
-    xpt2046::Xpt2046,
-};
+use crate::{ili9488::Ili9488, xpt2046::Xpt2046};
 use application::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
