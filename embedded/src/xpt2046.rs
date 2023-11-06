@@ -25,3 +25,8 @@ impl<S: embedded_hal::spi::SpiDevice> Xpt2046<S> {
         )
     }
 }
+
+#[test]
+fn test_range() {
+    assert!(true)
+}

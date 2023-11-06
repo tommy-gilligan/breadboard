@@ -39,6 +39,7 @@ pub enum YPin {
     Y7,
 }
 
+#[allow(dead_code)]
 pub fn address<X, Y, const Y_SHIFT: u8>(x: X, y: Y) -> u8
 where
     X: Into<u8>,

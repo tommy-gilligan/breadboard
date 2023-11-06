@@ -18,7 +18,7 @@ impl Default for Controller {
 }
 
 impl Controller {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self {
             connections: crate::model::Connections::new(),
             view: Breadboard::new((18, 18)),
@@ -41,7 +41,7 @@ impl Controller {
         T: DrawTarget<Color = Rgb888>,
     {
         if let Some(TouchEvent { x, y, r#type }) = touchscreen.get_touch_event() {
-            let HitTestResult::HitColumn((region, column)) = self.view.hit_test(x as i32, y as i32);
+            let HitTestResult::HitColumn((region, column)) = self.view.hit_test(i32::from(x), i32::from(y));
             let selection_event_type = match r#type {
                 TouchEventType::Start => SelectionEventType::Start,
                 TouchEventType::Move => SelectionEventType::Update,

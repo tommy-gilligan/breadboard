@@ -17,7 +17,7 @@ jobs:
     - name: Format
       run: cargo fmt --check --all
     - name: Clippy
-      run: cargo clippy -D clippy-pedantic
+      run: cargo clippy -- -D clippy-pedantic
 #    - name: install toolchain
 #      uses: actions-rs/toolchain@v1
 #      with:

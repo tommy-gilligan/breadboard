@@ -184,6 +184,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a26ae43d7bcc3b814de94796a5e736d4029efb0ee900c12e2d54c993ad1a1e07"
 
 [[package]]
+name = "embedded"
+version = "0.1.0"
+dependencies = [
+ "application",
+ "cortex-m",
+ "cortex-m-rt",
+ "defmt",
+ "defmt-rtt",
+ "embedded-graphics",
+ "embedded-graphics-core",
+ "embedded-hal 1.0.0-rc.1",
+ "embedded-hal-bus",
+ "fugit",
+ "panic-probe",
+ "rp2040-boot2",
+ "rp2040-hal",
+]
+
+[[package]]
 name = "embedded-dma"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -532,25 +551,6 @@ name = "rand_core"
 version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
-
-[[package]]
-name = "rp2040"
-version = "0.1.0"
-dependencies = [
- "application",
- "cortex-m",
- "cortex-m-rt",
- "defmt",
- "defmt-rtt",
- "embedded-graphics",
- "embedded-graphics-core",
- "embedded-hal 1.0.0-rc.1",
- "embedded-hal-bus",
- "fugit",
- "panic-probe",
- "rp2040-boot2",
- "rp2040-hal",
-]
 
 [[package]]
 name = "rp2040-boot2"

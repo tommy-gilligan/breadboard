@@ -1,7 +1,5 @@
 # TODO
 
-- bring in embedded
-- remove config params eg. margin.  simplifies code for now.
 - more generous hit test.  whole column/region.  not just margin area
 - shelve swiping selection for now (come back to it later, use second core to handle touch/display concurrently)
 - update readme
@@ -14,3 +12,5 @@
 - investigate CAD
 - why is it slow?
 - just generally optimize
+- more CI
+- more tests
