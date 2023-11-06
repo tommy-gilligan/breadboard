@@ -66,7 +66,8 @@ impl<S: embedded_hal::spi::SpiDevice, DC: OutputPin> Ili9488<S, DC> {
         delay.delay_ms(120);
 
         result.cmd8(0x36); //Memory access control
-        result.data8(56); //sets orientation/scan direction/flip
+        result.data8(0xE8); //sets orientation/scan direction/flip
+
         result.cmd8(0x3A); //Pixel interface format
         result.data8(0x66);
 

@@ -14,7 +14,7 @@ fn request_animation_frame(f: &Closure<dyn FnMut()>) {
 }
 
 #[wasm_bindgen(start)]
-fn run() -> Result<(), JsValue> {
+fn run() {
     let touchscreen_div = window()
         .document()
         .unwrap()
@@ -33,5 +33,4 @@ fn run() -> Result<(), JsValue> {
     }));
 
     request_animation_frame(g.borrow().as_ref().unwrap());
-    Ok(())
 }

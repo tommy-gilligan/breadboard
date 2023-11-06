@@ -74,7 +74,7 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
                 self.last_touch = Some((x, y));
 
                 result
-            },
+            }
             None => {
                 if let Some((last_x, last_y)) = self.last_touch {
                     self.last_touch = None;
@@ -94,17 +94,16 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
 
 fn convert((x, y): (u16, u16)) -> Option<(u16, u16)> {
     if x < 250 || y < 230 || x > 4000 || y > 3900 {
-        return None
+        return None;
     }
 
-    Some(
-        (
-            (x - 250).wrapping_shr(9) * 68,
-            (y - 230).wrapping_shr(9) * 46,
-        )
-    )
+    Some((
+        (x - 250).wrapping_shr(9) * 68,
+        (y - 230).wrapping_shr(9) * 46,
+    ))
 }
 
+#[cfg(test)]
 mod test {
     extern crate std;
 

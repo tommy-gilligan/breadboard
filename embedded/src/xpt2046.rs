@@ -8,12 +8,10 @@ impl<S: embedded_hal::spi::SpiDevice> Xpt2046<S> {
     pub fn get(&mut self) -> Result<(u16, u16), <S as embedded_hal::spi::ErrorType>::Error> {
         let mut buff = [0x12, 0, 0x1A, 0, 0];
         self.0.transfer_in_place(&mut buff)?;
-        Ok(
-            (
-                u16::from_be_bytes([buff[1], buff[2]]),
-                u16::from_be_bytes([buff[3], buff[4]]),
-            )
-        )
+        Ok((
+            u16::from_be_bytes([buff[1], buff[2]]),
+            u16::from_be_bytes([buff[3], buff[4]]),
+        ))
     }
 }
 
@@ -28,42 +26,37 @@ mod test {
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x00, 0x00, 0x00, 0x00]
+                std::vec![0x00, 0x00, 0x00, 0x00, 0x00],
             ),
             SpiTransaction::transaction_end(),
-
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x10, 0x00, 0x10, 0x00]
+                std::vec![0x00, 0x10, 0x00, 0x10, 0x00],
             ),
             SpiTransaction::transaction_end(),
-
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x00, 0x00, 0x10, 0x00]
+                std::vec![0x00, 0x00, 0x00, 0x10, 0x00],
             ),
             SpiTransaction::transaction_end(),
-
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x10, 0x00, 0x00, 0x00]
+                std::vec![0x00, 0x10, 0x00, 0x00, 0x00],
             ),
             SpiTransaction::transaction_end(),
-
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x07, 0xD0, 0x00, 0x00]
+                std::vec![0x00, 0x07, 0xD0, 0x00, 0x00],
             ),
             SpiTransaction::transaction_end(),
-
             SpiTransaction::transaction_start(),
             SpiTransaction::transfer_in_place(
                 std::vec![0x12, 0x00, 0x1A, 0x00, 0x00],
-                std::vec![0x00, 0x00, 0x00, 0x07, 0xD0]
+                std::vec![0x00, 0x00, 0x00, 0x07, 0xD0],
             ),
             SpiTransaction::transaction_end(),
         ];

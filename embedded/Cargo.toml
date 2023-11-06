@@ -10,6 +10,8 @@ embedded-graphics = { version = "0.7.1" }
 embedded-hal = { version = "1.0.0-rc.1" }
 embedded-hal-bus = { version = "0.1.0-rc.1" }
 application = { path = ".." }
+display-interface = { git = "https://github.com/therealprof/display-interface.git" }
+display-interface-spi = { git = "https://github.com/therealprof/display-interface.git" }
 
 [target.'cfg(not(target_os = "none"))'.dependencies]
 embedded-hal-mock = { version = "0.10.0-rc.1", features = ["eh1"] }

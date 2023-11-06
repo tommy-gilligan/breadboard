@@ -22,6 +22,11 @@ mod embedded {
 
     use defmt_rtt as _;
     use embedded::xpt2046::Xpt2046;
+    use embedded_graphics::{
+        pixelcolor::Rgb888,
+        prelude::*,
+        primitives::{PrimitiveStyleBuilder, Rectangle},
+    };
     use embedded_hal::delay::DelayUs;
     use embedded_hal::spi::{Mode, Phase, Polarity};
     use embedded_hal_bus::spi::RefCellDevice;
