@@ -1,11 +1,8 @@
 #![no_std]
-#![no_main]
-
-#[cfg(not(target_os = "none"))]
+#![no_main] #[cfg(not(target_os = "none"))]
 mod other {
     extern crate std;
     use std::println;
-
     #[no_mangle]
     pub extern "C" fn main() {
         println!("unsupported target");
@@ -127,8 +124,6 @@ mod embedded {
             delay,
         );
         let mut controller = application::controller::Controller::new();
-        controller.redraw(&mut touchscreen);
-
         loop {
             timer.delay_ms(10);
             controller.run(&mut touchscreen);

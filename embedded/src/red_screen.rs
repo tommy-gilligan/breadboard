@@ -98,8 +98,8 @@ fn convert((x, y): (u16, u16)) -> Option<(u16, u16)> {
     }
 
     Some((
-        (x - 250).wrapping_shr(9) * 68,
-        (y - 230).wrapping_shr(9) * 46,
+        (x - 250).wrapping_shr(6) * 9,
+        (y - 230).wrapping_shr(6) * 6,
     ))
 }
 
