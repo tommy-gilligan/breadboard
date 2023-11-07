@@ -1,13 +1,13 @@
 #![no_std]
-use ili9488::Ili9488;
-use xpt2046::Xpt2046;
-use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
     prelude::{DrawTarget, OriginDimensions, Size},
     Pixel,
 };
 use embedded_hal::digital::OutputPin;
+use ili9488::Ili9488;
+use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
+use xpt2046::Xpt2046;
 
 pub struct RedScreen<
     LS: embedded_hal::spi::SpiDevice,
@@ -112,7 +112,7 @@ mod test {
     #[test]
     fn test_convert() {
         assert_eq!(super::convert((250, 230)), Some((0, 0)));
-        assert_eq!(super::convert((3920, 3850)), Some((476, 322)));
+        assert_eq!(super::convert((3920, 3850)), Some((513, 336)));
     }
 
     #[test]

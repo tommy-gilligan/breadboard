@@ -3,11 +3,14 @@ use core::fmt::Debug;
 use embedded_graphics::pixelcolor::Rgb888;
 use embedded_graphics_core::prelude::DrawTarget;
 
-use touchscreen::{TouchEvent, Touchscreen};
-use embedded_graphics::primitives::PrimitiveStyle;
-use embedded_graphics_core::{prelude::{Point, Size}, primitives::Rectangle};
 use embedded_graphics::prelude::Primitive;
+use embedded_graphics::primitives::PrimitiveStyle;
 use embedded_graphics::Drawable;
+use embedded_graphics_core::{
+    prelude::{Point, Size},
+    primitives::Rectangle,
+};
+use touchscreen::{TouchEvent, Touchscreen};
 
 pub struct Controller;
 
@@ -20,14 +23,15 @@ impl Controller {
     {
         if let Some(TouchEvent { x, y, .. }) = touchscreen.get_touch_event() {
             let fill = PrimitiveStyle::with_fill(Rgb888::new(255, 0, 0));
-            Rectangle::with_center(Point::new(x.into(), y.into()), Size::new(16, 16))
+            Rectangle::with_center(Point::new(x, y), Size::new(16, 16))
                 .into_styled(fill)
-                .draw(touchscreen).unwrap();
+                .draw(touchscreen)
+                .unwrap();
         }
     }
 }
 
-#[cfg(not(target_os="none"))]
+#[cfg(not(target_os = "none"))]
 mod web {
     extern crate std;
     use std::cell::RefCell;
@@ -35,14 +39,16 @@ mod web {
     use wasm_bindgen::prelude::*;
 
     fn request_animation_frame(f: &Closure<dyn FnMut()>) {
-        web_sys::window().expect("no global `window` exists")
+        web_sys::window()
+            .expect("no global `window` exists")
             .request_animation_frame(f.as_ref().unchecked_ref())
             .expect("should register `requestAnimationFrame` OK");
     }
 
     #[wasm_bindgen(start)]
     fn run() {
-        let touchscreen_div = web_sys::window().expect("no global `window` exists")
+        let touchscreen_div = web_sys::window()
+            .expect("no global `window` exists")
             .document()
             .unwrap()
             .get_element_by_id("touchscreen")

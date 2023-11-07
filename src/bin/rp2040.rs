@@ -20,8 +20,8 @@ mod embedded {
     use core::cell::RefCell;
 
     use defmt_rtt as _;
-    use embedded_hal::digital::OutputPin;
     use embedded_hal::delay::DelayUs;
+    use embedded_hal::digital::OutputPin;
     use embedded_hal::spi::{Mode, Phase, Polarity};
     use embedded_hal_bus::spi::RefCellDevice;
     use fugit::RateExtU32;
@@ -112,13 +112,8 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let mut touchscreen = red_screen::RedScreen::new(
-            lcd_spi_device,
-            lcd_dc,
-            lcd_rst,
-            touch_spi_device,
-            delay,
-        );
+        let mut touchscreen =
+            red_screen::RedScreen::new(lcd_spi_device, lcd_dc, lcd_rst, touch_spi_device, delay);
         let mut controller = Controller;
         loop {
             timer.delay_ms(10);

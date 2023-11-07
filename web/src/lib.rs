@@ -1,14 +1,16 @@
-use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
     prelude::{DrawTarget, OriginDimensions, Size},
     Pixel,
 };
 use embedded_graphics_web_simulator::{
-    display::WebSimulatorDisplay,
-    output_settings::OutputSettingsBuilder,
+    display::WebSimulatorDisplay, output_settings::OutputSettingsBuilder,
 };
-use std::{error::Error, sync::mpsc::{channel, Receiver, Sender}};
+use std::{
+    error::Error,
+    sync::mpsc::{channel, Receiver, Sender},
+};
+use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, HtmlElement};
 
