@@ -1,3 +1,4 @@
+#![no_std]
 use embedded_graphics_core::prelude::{DrawTarget, OriginDimensions};
 
 #[derive(Debug)]

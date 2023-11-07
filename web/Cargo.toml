@@ -2,14 +2,9 @@
 name = "web"
 version = "0.1.0"
 edition = "2021"
-description = "Template for starting a Yew project using Trunk"
-license = "MIT OR Apache-2.0"
-
-[lib]
-crate-type = ["cdylib"]
 
 [dependencies]
-application = { path = ".." }
+touchscreen = { path = "../touchscreen" }
 wasm-bindgen = "0.2.88"
 embedded-graphics-core = "0.3.3"
 embedded-graphics-web-simulator = "^0.3.0"

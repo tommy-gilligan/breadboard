@@ -1,6 +1,7 @@
+#![no_std]
 use ili9488::Ili9488;
 use xpt2046::Xpt2046;
-use application::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
+use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
     prelude::{DrawTarget, OriginDimensions, Size},

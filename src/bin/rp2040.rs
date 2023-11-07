@@ -11,22 +11,15 @@ mod other {
 }
 
 #[cfg(target_os = "none")]
-mod red_screen;
-#[cfg(target_os = "none")]
 mod embedded {
     #[link_section = ".boot2"]
     #[used]
     pub static BOOT2: [u8; 256] = rp2040_boot2::BOOT_LOADER_GENERIC_03H;
+    use application::Controller;
 
     use core::cell::RefCell;
 
     use defmt_rtt as _;
-    use xpt2046::Xpt2046;
-    use embedded_graphics::{
-        pixelcolor::Rgb888,
-        prelude::*,
-        primitives::{PrimitiveStyleBuilder, Rectangle},
-    };
     use embedded_hal::digital::OutputPin;
     use embedded_hal::delay::DelayUs;
     use embedded_hal::spi::{Mode, Phase, Polarity};
@@ -119,17 +112,17 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let mut touchscreen = crate::red_screen::RedScreen::new(
+        let mut touchscreen = red_screen::RedScreen::new(
             lcd_spi_device,
             lcd_dc,
             lcd_rst,
             touch_spi_device,
             delay,
         );
-        let mut controller = application::controller::Controller::new();
+        let mut controller = Controller;
         loop {
             timer.delay_ms(10);
-            controller.run(&mut touchscreen);
+            controller.tick(&mut touchscreen);
         }
     }
 }

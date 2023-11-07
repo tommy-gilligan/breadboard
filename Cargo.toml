@@ -1,26 +1,49 @@
 [workspace]
-members = ["web", "embedded", "xpt2046", "ili9488"]
+members = ["web", "red_screen", "xpt2046", "ili9488", "touchscreen"]
 resolver = "2"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
 
 [package]
 name = "application"
 version = "0.1.0"
 edition = "2021"
-description = "Template for starting a Yew project using Trunk"
-license = "MIT OR Apache-2.0"
 
 [dependencies]
-embedded-graphics = "0.7.0"
+embedded-graphics = "0.7.1"
 embedded-graphics-core = "0.3.3"
 embedded-hal = "1.0.0-rc.1"
-embedded-hal-bus = "0.1.0-rc.1"
-hash32 = "0.2.1"
-heapless = "0.7.16"
-num_enum = { version = "0.7.1", default-features = false }
-defmt = { version = "0.3", optional = true }
+touchscreen = { path = "touchscreen" }
 
-[features]
-embedded = ["dep:defmt"]
+[target.'cfg(not(target_os = "none"))'.dependencies]
+embedded-graphics-web-simulator = "^0.3.0"
+wasm-bindgen = "0.2.88"
+web = { path = "web" }
+
+[target.'cfg(not(target_os = "none"))'.dependencies.web-sys]
+version = "^0.3.64"
+features = [
+  'Document',
+  'Element',
+  'HtmlElement',
+  'MouseEvent',
+  'Window',
+]
+
+[target.'cfg(target_os = "none")'.dependencies]
+embedded-hal-bus = "0.1.0-rc.1"
+ili9488 = { path = "ili9488" }
+xpt2046 = { path = "xpt2046" }
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+defmt = "0.3"
+defmt-rtt = "0.4"
+fugit = "0.3.7"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+red_screen = { path = "red_screen" }
+rp2040-boot2 = "0.3"
+rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
 
 [profile.dev]
 codegen-units = 1
