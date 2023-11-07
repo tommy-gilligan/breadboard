@@ -221,9 +221,11 @@ dependencies = [
  "embedded-hal-bus",
  "embedded-hal-mock",
  "fugit",
+ "ili9488",
  "panic-probe",
  "rp2040-boot2",
  "rp2040-hal",
+ "xpt2046",
 ]
 
 [[package]]
@@ -412,6 +414,15 @@ dependencies = [
  "rustc_version 0.4.0",
  "spin",
  "stable_deref_trait",
+]
+
+[[package]]
+name = "ili9488"
+version = "0.1.0"
+dependencies = [
+ "embedded-graphics-core",
+ "embedded-hal 1.0.0-rc.1",
+ "embedded-hal-mock",
 ]
 
 [[package]]
@@ -923,4 +934,12 @@ checksum = "9b85cbef8c220a6abc02aefd892dfc0fc23afb1c6a426316ec33253a3877249b"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "xpt2046"
+version = "0.1.0"
+dependencies = [
+ "embedded-hal 1.0.0-rc.1",
+ "embedded-hal-mock",
 ]

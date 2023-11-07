@@ -26,7 +26,6 @@ fn run() {
     let g = f.clone();
 
     let mut controller = application::controller::Controller::new();
-    controller.redraw(&mut web_touchscreen);
     *g.borrow_mut() = Some(Closure::new(move || {
         controller.run(&mut web_touchscreen);
         request_animation_frame(f.borrow().as_ref().unwrap());

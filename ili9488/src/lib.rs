@@ -1,3 +1,4 @@
+#![no_std]
 use core::convert::TryInto;
 use embedded_graphics_core::{
     pixelcolor::{raw::RawU24, Rgb888},

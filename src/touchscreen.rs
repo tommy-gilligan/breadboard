@@ -9,8 +9,8 @@ pub enum TouchEventType {
 
 #[derive(Debug)]
 pub struct TouchEvent {
-    pub x: u16,
-    pub y: u16,
+    pub x: i32,
+    pub y: i32,
     pub r#type: TouchEventType,
 }
 

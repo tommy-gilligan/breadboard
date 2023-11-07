@@ -1,0 +1,12 @@
+[package]
+name = "xpt2046"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+embedded-hal = { version = "1.0.0-rc.1" }
+
+[target.'cfg(not(target_os = "none"))'.dependencies]
+embedded-hal-mock = { version = "0.10.0-rc.1", features = ["eh1"] }

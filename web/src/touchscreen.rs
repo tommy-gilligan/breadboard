@@ -176,8 +176,8 @@ impl Touchscreen for Web {
             }) => {
                 self.down = true;
                 Some(TouchEvent {
-                    x: u16::try_from(x).unwrap(),
-                    y: u16::try_from(y).unwrap(),
+                    x,
+                    y,
                     r#type: TouchEventType::Start,
                 })
             }
@@ -189,8 +189,8 @@ impl Touchscreen for Web {
                 if self.down {
                     self.down = false;
                     Some(TouchEvent {
-                        x: u16::try_from(x).unwrap(),
-                        y: u16::try_from(y).unwrap(),
+                        x,
+                        y,
                         r#type: TouchEventType::End,
                     })
                 } else {
@@ -204,8 +204,8 @@ impl Touchscreen for Web {
             }) => {
                 if self.down {
                     Some(TouchEvent {
-                        x: u16::try_from(x).unwrap(),
-                        y: u16::try_from(y).unwrap(),
+                        x,
+                        y,
                         r#type: TouchEventType::Move,
                     })
                 } else {

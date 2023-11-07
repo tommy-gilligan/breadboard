@@ -12,6 +12,8 @@ embedded-hal-bus = { version = "0.1.0-rc.1" }
 application = { path = ".." }
 display-interface = { git = "https://github.com/therealprof/display-interface.git" }
 display-interface-spi = { git = "https://github.com/therealprof/display-interface.git" }
+ili9488 = { path = "../ili9488" }
+xpt2046 = { path = "../xpt2046" }
 
 [target.'cfg(not(target_os = "none"))'.dependencies]
 embedded-hal-mock = { version = "0.10.0-rc.1", features = ["eh1"] }

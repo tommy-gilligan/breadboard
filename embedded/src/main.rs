@@ -1,5 +1,6 @@
 #![no_std]
-#![no_main] #[cfg(not(target_os = "none"))]
+#![no_main]
+#[cfg(not(target_os = "none"))]
 mod other {
     extern crate std;
     use std::println;
@@ -10,6 +11,8 @@ mod other {
 }
 
 #[cfg(target_os = "none")]
+mod red_screen;
+#[cfg(target_os = "none")]
 mod embedded {
     #[link_section = ".boot2"]
     #[used]
@@ -18,7 +21,7 @@ mod embedded {
     use core::cell::RefCell;
 
     use defmt_rtt as _;
-    use embedded::xpt2046::Xpt2046;
+    use xpt2046::Xpt2046;
     use embedded_graphics::{
         pixelcolor::Rgb888,
         prelude::*,
@@ -116,7 +119,7 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let mut touchscreen = embedded::red_screen::RedScreen::new(
+        let mut touchscreen = crate::red_screen::RedScreen::new(
             lcd_spi_device,
             lcd_dc,
             lcd_rst,

@@ -1,5 +1,5 @@
 [workspace]
-members = ["web", "embedded"]
+members = ["web", "embedded", "xpt2046", "ili9488"]
 resolver = "2"
 
 [package]

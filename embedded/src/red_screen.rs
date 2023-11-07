@@ -1,4 +1,5 @@
-use crate::{ili9488::Ili9488, xpt2046::Xpt2046};
+use ili9488::Ili9488;
+use xpt2046::Xpt2046;
 use application::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
@@ -14,7 +15,7 @@ pub struct RedScreen<
 > {
     ili_9488: Ili9488<LS, DC>,
     xpt_2046: Xpt2046<TS>,
-    last_touch: Option<(u16, u16)>,
+    last_touch: Option<(i32, i32)>,
 }
 
 impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: OutputPin>
@@ -92,14 +93,14 @@ impl<LS: embedded_hal::spi::SpiDevice, TS: embedded_hal::spi::SpiDevice, DC: Out
     }
 }
 
-fn convert((x, y): (u16, u16)) -> Option<(u16, u16)> {
+fn convert((x, y): (u16, u16)) -> Option<(i32, i32)> {
     if x < 250 || y < 230 || x > 4000 || y > 3900 {
         return None;
     }
 
     Some((
-        (x - 250).wrapping_shr(6) * 9,
-        (y - 230).wrapping_shr(6) * 6,
+        ((x - 250).wrapping_shr(6) * 9).into(),
+        ((y - 230).wrapping_shr(6) * 6).into(),
     ))
 }
 
