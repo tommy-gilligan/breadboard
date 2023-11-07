@@ -2,9 +2,8 @@ use core::fmt::Debug;
 use embedded_graphics::pixelcolor::Rgb888;
 use embedded_graphics_core::prelude::DrawTarget;
 
-use crate::model::Connection;
 use crate::touchscreen::{TouchEvent, TouchEventType, Touchscreen};
-use crate::view::{Breadboard, HitTestResult, Region, SelectionEvent, SelectionEventType};
+use crate::view::{Breadboard, HitTestResult};
 
 pub struct Controller {
     connections: crate::model::Connections,
@@ -22,7 +21,7 @@ impl Controller {
     pub fn new() -> Self {
         Self {
             connections: crate::model::Connections::new(),
-            view: Breadboard::new((18, 18)),
+            view: Breadboard,
         }
     }
 
@@ -42,37 +41,38 @@ impl Controller {
         T: DrawTarget<Color = Rgb888>,
     {
         if let Some(TouchEvent { x, y, r#type }) = touchscreen.get_touch_event() {
-            let HitTestResult::HitColumn((region, column)) =
-                self.view.hit_test(i32::from(x), i32::from(y));
-            let selection_event_type = match r#type {
-                TouchEventType::Start => SelectionEventType::Start,
-                TouchEventType::Move => SelectionEventType::Update,
-                TouchEventType::End => SelectionEventType::End,
-            };
-            let selection = self.view.update_selection(SelectionEvent {
-                region,
-                column,
-                r#type: selection_event_type,
-            });
+        //     let HitTestResult::HitColumn((region, column)) =
+        //         self.view.hit_test(i32::from(x), i32::from(y));
 
-            match r#type {
-                TouchEventType::Start => {
-                    self.view.draw(touchscreen, &self.connections);
-                }
-                TouchEventType::End => {
-                    let (a, b) = selection.unwrap();
+        //     let selection_event_type = match r#type {
+        //         TouchEventType::Start => SelectionEventType::Start,
+        //         TouchEventType::Move => SelectionEventType::Update,
+        //         TouchEventType::End => SelectionEventType::End,
+        //     };
+        //     let selection = self.view.update_selection(SelectionEvent {
+        //         region,
+        //         column,
+        //         r#type: selection_event_type,
+        //     });
 
-                    if region == Region::Top {
-                        self.connections.insert(Connection::Top(a, b + 1));
-                    } else {
-                        self.connections.insert(Connection::Bottom(a, b + 1));
-                    }
-                    self.view.draw(touchscreen, &self.connections);
-                }
-                TouchEventType::Move => {
-                    self.view.draw_selection_highlight(touchscreen);
-                }
-            };
+        //     match r#type {
+        //         TouchEventType::Start => {
+        //             self.view.draw(touchscreen, &self.connections);
+        //         }
+        //         TouchEventType::End => {
+        //             let (a, b) = selection.unwrap();
+
+        //             if region == Region::Top {
+        //                 self.connections.insert(Connection::Top(a, b + 1));
+        //             } else {
+        //                 self.connections.insert(Connection::Bottom(a, b + 1));
+        //             }
+        //             self.view.draw(touchscreen, &self.connections);
+        //         }
+        //         TouchEventType::Move => {
+        //             self.view.draw_selection_highlight(touchscreen);
+        //         }
+        //     };
         }
     }
 }

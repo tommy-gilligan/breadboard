@@ -27,6 +27,7 @@ mod embedded {
         prelude::*,
         primitives::{PrimitiveStyleBuilder, Rectangle},
     };
+    use embedded_hal::digital::OutputPin;
     use embedded_hal::delay::DelayUs;
     use embedded_hal::spi::{Mode, Phase, Polarity};
     use embedded_hal_bus::spi::RefCellDevice;
@@ -77,15 +78,18 @@ mod embedded {
         );
 
         let mut timer = Timer::new(pac.TIMER, &mut pac.RESETS, &clocks);
-        let delay = Delay(&mut timer);
+        let mut delay = Delay(&mut timer);
+        let mut vcc = pins.gpio5.into_push_pull_output();
+        vcc.set_high().unwrap();
+        delay.delay_ms(500);
 
-        let clk_0 = pins.gpio6.into_function::<hal::gpio::FunctionSpi>();
-        let mosi_0 = pins.gpio7.into_function::<hal::gpio::FunctionSpi>();
-        let miso_0 = pins.gpio16.into_function::<hal::gpio::FunctionSpi>();
-        let lcd_cs = pins.gpio3.into_push_pull_output();
-        let lcd_rst = pins.gpio4.into_push_pull_output();
-        let lcd_dc = pins.gpio5.into_push_pull_output();
-        let spi_0 = hal::spi::Spi::<_, _, _, 8>::new(pac.SPI0, (mosi_0, miso_0, clk_0));
+        let clk_0 = pins.gpio10.into_function::<hal::gpio::FunctionSpi>();
+        let mosi_0 = pins.gpio11.into_function::<hal::gpio::FunctionSpi>();
+        let miso_0 = pins.gpio8.into_function::<hal::gpio::FunctionSpi>();
+        let lcd_cs = pins.gpio9.into_push_pull_output();
+        let lcd_rst = pins.gpio13.into_push_pull_output();
+        let lcd_dc = pins.gpio12.into_push_pull_output();
+        let spi_0 = hal::spi::Spi::<_, _, _, 8>::new(pac.SPI1, (mosi_0, miso_0, clk_0));
         let spi_0 = spi_0.init(
             &mut pac.RESETS,
             clocks.peripheral_clock.freq(),
@@ -98,11 +102,11 @@ mod embedded {
         let spi_0_cell = RefCell::new(spi_0);
         let lcd_spi_device = RefCellDevice::new_no_delay(&spi_0_cell, lcd_cs);
 
-        let clk_1 = pins.gpio10.into_function::<hal::gpio::FunctionSpi>();
-        let mosi_1 = pins.gpio15.into_function::<hal::gpio::FunctionSpi>();
-        let miso_1 = pins.gpio12.into_function::<hal::gpio::FunctionSpi>();
-        let touch_cs = pins.gpio11.into_push_pull_output();
-        let spi_1 = hal::spi::Spi::<_, _, _, 8>::new(pac.SPI1, (mosi_1, miso_1, clk_1));
+        let clk_1 = pins.gpio2.into_function::<hal::gpio::FunctionSpi>();
+        let mosi_1 = pins.gpio3.into_function::<hal::gpio::FunctionSpi>();
+        let miso_1 = pins.gpio4.into_function::<hal::gpio::FunctionSpi>();
+        let touch_cs = pins.gpio7.into_push_pull_output();
+        let spi_1 = hal::spi::Spi::<_, _, _, 8>::new(pac.SPI0, (mosi_1, miso_1, clk_1));
         let spi_1 = spi_1.init(
             &mut pac.RESETS,
             clocks.peripheral_clock.freq(),
