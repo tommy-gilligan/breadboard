@@ -15,7 +15,7 @@ use touchscreen::{TouchEvent, Touchscreen};
 pub struct Controller;
 
 impl Controller {
-    pub fn tick<T>(&mut self, touchscreen: &mut T)
+    pub fn tick<T>(&mut self, touchscreen: &mut T) -> Result<(), <T as DrawTarget>::Error>
     where
         T: Touchscreen,
         <T as DrawTarget>::Error: Debug,
@@ -26,7 +26,8 @@ impl Controller {
             Rectangle::with_center(Point::new(x, y), Size::new(16, 16))
                 .into_styled(fill)
                 .draw(touchscreen)
-                .unwrap();
+        } else {
+            Ok(())
         }
     }
 }
@@ -59,9 +60,9 @@ mod web {
         let g = f.clone();
 
         let mut controller = super::Controller;
-        controller.tick(&mut web_touchscreen);
+        controller.tick(&mut web_touchscreen).unwrap();
         *g.borrow_mut() = Some(Closure::new(move || {
-            controller.tick(&mut web_touchscreen);
+            controller.tick(&mut web_touchscreen).unwrap();
             request_animation_frame(f.borrow().as_ref().unwrap());
         }));
 

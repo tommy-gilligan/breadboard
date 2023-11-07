@@ -117,7 +117,7 @@ mod embedded {
         let mut controller = Controller;
         loop {
             timer.delay_ms(10);
-            controller.tick(&mut touchscreen);
+            controller.tick(&mut touchscreen).unwrap();
         }
     }
 }

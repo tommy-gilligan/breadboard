@@ -34,6 +34,7 @@ pub struct Web {
 }
 
 impl Web {
+    #[must_use]
     pub fn new(element: &Element) -> Self {
         let simulator_display = WebSimulatorDisplay::new(
             (480, 320),
