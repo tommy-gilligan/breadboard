@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-embedded-hal.workspace = true
-embedded-graphics-core.workspace = true
+embedded-hal = "1.0.0-rc.1"
+embedded-graphics-core = "0.3.3"
