@@ -12,10 +12,6 @@ use embedded_graphics_core::{
 };
 use touchscreen::Touchscreen;
 
-pub struct Controller {
-    needs_redraw: bool,
-}
-
 const COLORS: [Rgb888; 8] = [
     Rgb888::new(255, 0, 0),
     Rgb888::new(0, 255, 0),
@@ -27,6 +23,10 @@ const COLORS: [Rgb888; 8] = [
     Rgb888::new(255, 255, 255),
 ];
 
+pub struct Controller {
+    selected_color: Option<Rgb888>,
+}
+
 impl Default for Controller {
     fn default() -> Self {
         Self::new()
@@ -36,7 +36,9 @@ impl Default for Controller {
 impl Controller {
     #[must_use]
     pub fn new() -> Self {
-        Self { needs_redraw: true }
+        Self {
+            selected_color: None,
+        }
     }
 
     pub fn tick<T>(&mut self, touchscreen: &mut T)
@@ -45,28 +47,51 @@ impl Controller {
         <T as DrawTarget>::Error: Debug,
         T: DrawTarget<Color = Rgb888>,
     {
-        if self.needs_redraw {
-            self.needs_redraw = false;
-            let n_colors = COLORS.len();
-            let color_width: u32 = touchscreen.size().width / n_colors as u32;
-            let mut x_offset = 0;
+        let mut x_offset = 0;
 
-            for color in COLORS {
-                let fill = PrimitiveStyle::with_fill(color);
+        if let Some(_selected_color) = self.selected_color {
+            if let Ok(Some(touchscreen::TouchEvent { r#type, .. })) = touchscreen.get_touch_event()
+            {
+                if r#type == touchscreen::TouchEventType::End {
+                    self.selected_color = None;
+
+                    let color_width = touchscreen.size().width / COLORS.len() as u32;
+
+                    for color in COLORS {
+                        let fill = PrimitiveStyle::with_fill(color);
+                        Rectangle::new(
+                            Point::new(x_offset, 0),
+                            Size::new(color_width, touchscreen.size().height),
+                        )
+                        .into_styled(fill)
+                        .draw(touchscreen)
+                        .unwrap();
+                        x_offset += color_width as i32;
+                    }
+                }
+            }
+        } else if let Ok(Some(touchscreen::TouchEvent { x, r#type, .. })) =
+            touchscreen.get_touch_event()
+        {
+            if r#type == touchscreen::TouchEventType::End {
+                let color_width = touchscreen.size().width / COLORS.len() as u32;
+
+                self.selected_color = Some(COLORS[x as usize / color_width as usize]);
+
+                let fill = PrimitiveStyle::with_fill(self.selected_color.unwrap());
                 Rectangle::new(
-                    Point::new(x_offset, 0),
-                    Size::new(color_width, touchscreen.size().height),
+                    Point::new(0, 0),
+                    Size::new(touchscreen.size().width, touchscreen.size().height),
                 )
                 .into_styled(fill)
                 .draw(touchscreen)
                 .unwrap();
-                x_offset += color_width as i32;
             }
         }
     }
 }
 
-#[cfg(not(target_os = "none"))]
+#[cfg(target_family = "wasm")]
 mod web {
     extern crate std;
     use std::cell::RefCell;
