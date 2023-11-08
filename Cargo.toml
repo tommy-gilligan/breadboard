@@ -6,7 +6,7 @@ resolver = "2"
 embedded-graphics = "0.7.1"
 embedded-graphics-core = "0.3.3"
 embedded-hal = "1.0.0-rc.1"
-touchscreen = { git = "https://github.com/tommy-gilligan/touchscreen.git" }
+touchscreen = "0.1.0"
 embedded-graphics-web-simulator = "^0.3.0"
 wasm-bindgen = "0.2.88"
 web-sys = { version = "^0.3.64", features = [ 'Document', 'Element', 'HtmlElement', 'MouseEvent', 'Window' ] }
