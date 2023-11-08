@@ -1,5 +1,5 @@
 extern crate std;
-use std::boxed::Box;
+use crate::{TouchEvent, TouchEventType, Touchscreen};
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
     prelude::{DrawTarget, OriginDimensions, Size},
@@ -8,11 +8,11 @@ use embedded_graphics_core::{
 use embedded_graphics_web_simulator::{
     display::WebSimulatorDisplay, output_settings::OutputSettingsBuilder,
 };
+use std::boxed::Box;
 use std::{
     error::Error,
     sync::mpsc::{channel, Receiver, Sender},
 };
-use crate::{TouchEvent, TouchEventType, Touchscreen};
 use wasm_bindgen::prelude::*;
 use web_sys::{Element, HtmlElement};
 

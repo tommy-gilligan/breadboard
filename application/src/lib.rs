@@ -10,10 +10,10 @@ use embedded_graphics_core::{
     prelude::{Point, Size},
     primitives::Rectangle,
 };
-use touchscreen::{TouchEvent, Touchscreen};
+use touchscreen::Touchscreen;
 
 pub struct Controller {
-    needs_redraw: bool
+    needs_redraw: bool,
 }
 
 const COLORS: [Rgb888; 8] = [
@@ -27,14 +27,23 @@ const COLORS: [Rgb888; 8] = [
     Rgb888::new(255, 255, 255),
 ];
 
+impl Default for Controller {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Controller {
     pub fn new() -> Self {
-        Self {
-            needs_redraw: true
-        }
+        Self { needs_redraw: true }
     }
 
-    pub fn tick<T>(&mut self, touchscreen: &mut T) where T: Touchscreen, <T as DrawTarget>::Error: Debug, T: DrawTarget<Color = Rgb888> {
+    pub fn tick<T>(&mut self, touchscreen: &mut T)
+    where
+        T: Touchscreen,
+        <T as DrawTarget>::Error: Debug,
+        T: DrawTarget<Color = Rgb888>,
+    {
         if self.needs_redraw {
             self.needs_redraw = false;
             let n_colors = COLORS.len();
@@ -43,10 +52,13 @@ impl Controller {
 
             for color in COLORS {
                 let fill = PrimitiveStyle::with_fill(color);
-                Rectangle::new(Point::new(x_offset, 0), Size::new(color_width, touchscreen.size().height))
-                    .into_styled(fill)
-                    .draw(touchscreen)
-                    .unwrap();
+                Rectangle::new(
+                    Point::new(x_offset, 0),
+                    Size::new(color_width, touchscreen.size().height),
+                )
+                .into_styled(fill)
+                .draw(touchscreen)
+                .unwrap();
                 x_offset += color_width as i32;
             }
         }
@@ -61,15 +73,20 @@ mod web {
     use wasm_bindgen::prelude::*;
 
     fn request_animation_frame(f: &Closure<dyn FnMut()>) {
-        web_sys::window().unwrap()
-            .request_animation_frame(f.as_ref().unchecked_ref()).unwrap();
+        web_sys::window()
+            .unwrap()
+            .request_animation_frame(f.as_ref().unchecked_ref())
+            .unwrap();
     }
 
     #[wasm_bindgen(start)]
     fn run() {
-        let touchscreen_div = web_sys::window().unwrap()
-            .document().unwrap()
-            .get_element_by_id("touchscreen").unwrap();
+        let touchscreen_div = web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .get_element_by_id("touchscreen")
+            .unwrap();
         let mut web_touchscreen = touchscreen::web_screen::Web::new(&touchscreen_div);
 
         let f = Rc::new(RefCell::new(None));

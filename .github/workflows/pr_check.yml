@@ -19,7 +19,7 @@ jobs:
     - name: Clippy
       run: cargo clippy
     - name: Test
-      run: cargo test --all
+      run: cargo test --all --all-features
 #    - name: install toolchain
 #      uses: actions-rs/toolchain@v1
 #      with:
