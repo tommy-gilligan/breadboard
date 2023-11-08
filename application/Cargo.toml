@@ -16,7 +16,7 @@ embedded-graphics-web-simulator.workspace = true
 wasm-bindgen.workspace = true
 web-sys.workspace = true
 touchscreen.workspace = true
-touchscreen.features = ["web_screen"]
+touchscreen.features = ["web-screen"]
 
 [target.'cfg(target_os = "none")'.dependencies]
 embedded-hal-bus.workspace = true
@@ -31,4 +31,4 @@ panic-probe.workspace = true
 rp2040-boot2.workspace = true
 rp2040-hal.workspace = true
 touchscreen.workspace = true
-touchscreen.features = ["red_screen"]
+touchscreen.features = ["red-screen"]

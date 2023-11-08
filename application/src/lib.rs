@@ -34,7 +34,7 @@ impl Default for Controller {
 }
 
 impl Controller {
-    pub fn new() -> Self {
+    #[must_use] pub fn new() -> Self {
         Self { needs_redraw: true }
     }
 
@@ -87,7 +87,15 @@ mod web {
             .unwrap()
             .get_element_by_id("touchscreen")
             .unwrap();
-        let mut web_touchscreen = touchscreen::web_screen::Web::new(&touchscreen_div);
+
+        let mut web_touchscreen = touchscreen::web_screen::Web::new(
+            (480, 320),
+            &touchscreen::web_screen::OutputSettingsBuilder::new()
+                .scale(1)
+                .pixel_spacing(0)
+                .build(),
+            &touchscreen_div,
+        );
 
         let f = Rc::new(RefCell::new(None));
         let g = f.clone();

@@ -112,17 +112,42 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let mut touchscreen = touchscreen::red_screen::RedScreen::new(
-            lcd_spi_device,
-            lcd_dc,
-            lcd_rst,
-            touch_spi_device,
-            delay,
-        );
+        let screen = ili9488::Ili9488::new(lcd_spi_device, lcd_dc, lcd_rst, delay);
+
+        let mut touchscreen =
+            touchscreen::red_screen::RedScreen::new(screen, touch_spi_device, convert);
         let mut controller = Controller::new();
         loop {
             timer.delay_ms(10);
             controller.tick(&mut touchscreen);
+        }
+    }
+    fn convert((x, y): (u16, u16)) -> Option<(i32, i32)> {
+        if x < 250 || y < 230 || x > 4000 || y > 3900 {
+            return None;
+        }
+
+        // rough but fast
+        Some((
+            ((x - 250).wrapping_shr(6) * 9).into(),
+            ((y - 230).wrapping_shr(6) * 6).into(),
+        ))
+    }
+
+    #[cfg(test)]
+    mod test {
+        extern crate std;
+
+        #[test]
+        fn test_convert() {
+            assert_eq!(super::convert((250, 230)), Some((0, 0)));
+            assert_eq!(super::convert((3920, 3850)), Some((513, 336)));
+        }
+
+        #[test]
+        fn test_convert_out_of_range() {
+            assert_eq!(super::convert((200, 200)), None);
+            assert_eq!(super::convert((4000, 4000)), None);
         }
     }
 }

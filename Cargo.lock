@@ -702,7 +702,6 @@ dependencies = [
  "embedded-graphics-core",
  "embedded-graphics-web-simulator",
  "embedded-hal 1.0.0-rc.1",
- "ili9488",
  "wasm-bindgen",
  "web-sys",
  "xpt2046",

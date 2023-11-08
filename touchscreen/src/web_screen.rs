@@ -5,9 +5,8 @@ use embedded_graphics_core::{
     prelude::{DrawTarget, OriginDimensions, Size},
     Pixel,
 };
-use embedded_graphics_web_simulator::{
-    display::WebSimulatorDisplay, output_settings::OutputSettingsBuilder,
-};
+use embedded_graphics_web_simulator::display::WebSimulatorDisplay;
+pub use embedded_graphics_web_simulator::output_settings::{OutputSettings, OutputSettingsBuilder};
 use std::boxed::Box;
 use std::{
     error::Error,
@@ -37,15 +36,8 @@ pub struct Web {
 
 impl Web {
     #[must_use]
-    pub fn new(element: &Element) -> Self {
-        let simulator_display = WebSimulatorDisplay::new(
-            (480, 320),
-            &OutputSettingsBuilder::new()
-                .scale(1)
-                .pixel_spacing(0)
-                .build(),
-            Some(element),
-        );
+    pub fn new(size: (u32, u32), output_settings: &OutputSettings, element: &Element) -> Self {
+        let simulator_display = WebSimulatorDisplay::new(size, output_settings, Some(element));
 
         let html_element = element.dyn_ref::<HtmlElement>().unwrap();
 
@@ -167,7 +159,7 @@ impl DrawTarget for Web {
 
 impl OriginDimensions for Web {
     fn size(&self) -> Size {
-        Size::new(480, 320)
+        self.simulator_display.size()
     }
 }
 

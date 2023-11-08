@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-embedded-hal = { version = "1.0.0-rc.1" }
+embedded-hal.workspace = true
 
 [target.'cfg(not(target_os = "none"))'.dependencies]
-embedded-hal-mock = { version = "0.10.0-rc.1", features = ["eh1"] }
+embedded-hal-mock.workspace = true

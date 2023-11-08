@@ -21,6 +21,7 @@ fugit = "0.3.7"
 panic-probe = { version = "0.3", features = ["print-defmt"] }
 rp2040-boot2 = "0.3"
 rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
+embedded-hal-mock = { version = "0.10.0-rc.1", features = ["eh1"] }
 
 [profile.dev]
 codegen-units = 1

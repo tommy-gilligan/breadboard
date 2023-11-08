@@ -21,7 +21,4 @@ are 2 implementations, which can be selected by feature flags:
 
 - Support touchscreens that can signal touch with interrupt
 - Add an associated error type
-- Improve red-screen's `convert` calculation
-- Move constructing screen part to outside of red-screen, web-screen
-  constructors (more composable)
 - Add an SDL `touchscreen`
