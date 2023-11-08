@@ -34,7 +34,8 @@ impl Default for Controller {
 }
 
 impl Controller {
-    #[must_use] pub fn new() -> Self {
+    #[must_use]
+    pub fn new() -> Self {
         Self { needs_redraw: true }
     }
 

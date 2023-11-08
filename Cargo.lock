@@ -23,7 +23,6 @@ dependencies = [
  "touchscreen",
  "wasm-bindgen",
  "web-sys",
- "xpt2046",
 ]
 
 [[package]]
@@ -698,6 +697,7 @@ dependencies = [
 [[package]]
 name = "touchscreen"
 version = "0.1.0"
+source = "git+https://github.com/tommy-gilligan/touchscreen.git#0f02a23e8bd9f983e139d7c56dd3d4714e31748d"
 dependencies = [
  "embedded-graphics-core",
  "embedded-graphics-web-simulator",
@@ -813,6 +813,7 @@ dependencies = [
 [[package]]
 name = "xpt2046"
 version = "0.1.0"
+source = "git+https://github.com/tommy-gilligan/touchscreen.git#0f02a23e8bd9f983e139d7c56dd3d4714e31748d"
 dependencies = [
  "embedded-hal 1.0.0-rc.1",
  "embedded-hal-mock",

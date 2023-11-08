@@ -1,18 +1,17 @@
 [workspace]
-members = ["xpt2046", "ili9488", "touchscreen", "application", "xtask"]
+members = ["ili9488", "application", "xtask"]
 resolver = "2"
 
 [workspace.dependencies]
 embedded-graphics = "0.7.1"
 embedded-graphics-core = "0.3.3"
 embedded-hal = "1.0.0-rc.1"
-touchscreen = { path = "touchscreen" }
+touchscreen = { git = "https://github.com/tommy-gilligan/touchscreen.git" }
 embedded-graphics-web-simulator = "^0.3.0"
 wasm-bindgen = "0.2.88"
 web-sys = { version = "^0.3.64", features = [ 'Document', 'Element', 'HtmlElement', 'MouseEvent', 'Window' ] }
 embedded-hal-bus = "0.1.0-rc.1"
 ili9488 = { path = "ili9488" }
-xpt2046 = { path = "xpt2046" }
 cortex-m = "0.7"
 cortex-m-rt = "0.7"
 defmt = "0.3"

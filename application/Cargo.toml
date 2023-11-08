@@ -21,7 +21,6 @@ touchscreen.features = ["web-screen"]
 [target.'cfg(target_os = "none")'.dependencies]
 embedded-hal-bus.workspace = true
 ili9488.workspace = true
-xpt2046.workspace = true
 cortex-m.workspace = true
 cortex-m-rt.workspace = true
 defmt.workspace = true
