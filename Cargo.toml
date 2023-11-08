@@ -1,37 +1,15 @@
 [workspace]
-members = ["web", "red_screen", "xpt2046", "ili9488", "touchscreen"]
+members = ["xpt2046", "ili9488", "touchscreen", "application", "xtask"]
 resolver = "2"
 
-[lib]
-crate-type = ["cdylib", "rlib"]
-
-[package]
-name = "application"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
+[workspace.dependencies]
 embedded-graphics = "0.7.1"
 embedded-graphics-core = "0.3.3"
 embedded-hal = "1.0.0-rc.1"
 touchscreen = { path = "touchscreen" }
-
-[target.'cfg(not(target_os = "none"))'.dependencies]
 embedded-graphics-web-simulator = "^0.3.0"
 wasm-bindgen = "0.2.88"
-web = { path = "web" }
-
-[target.'cfg(not(target_os = "none"))'.dependencies.web-sys]
-version = "^0.3.64"
-features = [
-  'Document',
-  'Element',
-  'HtmlElement',
-  'MouseEvent',
-  'Window',
-]
-
-[target.'cfg(target_os = "none")'.dependencies]
+web-sys = { version = "^0.3.64", features = [ 'Document', 'Element', 'HtmlElement', 'MouseEvent', 'Window' ] }
 embedded-hal-bus = "0.1.0-rc.1"
 ili9488 = { path = "ili9488" }
 xpt2046 = { path = "xpt2046" }
@@ -41,7 +19,6 @@ defmt = "0.3"
 defmt-rtt = "0.4"
 fugit = "0.3.7"
 panic-probe = { version = "0.3", features = ["print-defmt"] }
-red_screen = { path = "red_screen" }
 rp2040-boot2 = "0.3"
 rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
 

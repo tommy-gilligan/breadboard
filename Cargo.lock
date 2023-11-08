@@ -18,12 +18,10 @@ dependencies = [
  "fugit",
  "ili9488",
  "panic-probe",
- "red_screen",
  "rp2040-boot2",
  "rp2040-hal",
  "touchscreen",
  "wasm-bindgen",
- "web",
  "web-sys",
  "xpt2046",
 ]
@@ -570,17 +568,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 
 [[package]]
-name = "red_screen"
-version = "0.1.0"
-dependencies = [
- "embedded-graphics-core",
- "embedded-hal 1.0.0-rc.1",
- "ili9488",
- "touchscreen",
- "xpt2046",
-]
-
-[[package]]
 name = "rp2040-boot2"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -592,7 +579,7 @@ dependencies = [
 [[package]]
 name = "rp2040-hal"
 version = "0.9.0"
-source = "git+https://github.com/rp-rs/rp-hal.git#e70ad80541424e68809ffa9ea5a3dfea18a82e31"
+source = "git+https://github.com/rp-rs/rp-hal.git#fbb7e79f254720c05bc654a7b0eb18f15f767263"
 dependencies = [
  "cortex-m",
  "critical-section",
@@ -617,7 +604,7 @@ dependencies = [
 [[package]]
 name = "rp2040-hal-macros"
 version = "0.1.0"
-source = "git+https://github.com/rp-rs/rp-hal.git#e70ad80541424e68809ffa9ea5a3dfea18a82e31"
+source = "git+https://github.com/rp-rs/rp-hal.git#fbb7e79f254720c05bc654a7b0eb18f15f767263"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -713,6 +700,12 @@ name = "touchscreen"
 version = "0.1.0"
 dependencies = [
  "embedded-graphics-core",
+ "embedded-graphics-web-simulator",
+ "embedded-hal 1.0.0-rc.1",
+ "ili9488",
+ "wasm-bindgen",
+ "web-sys",
+ "xpt2046",
 ]
 
 [[package]]
@@ -809,17 +802,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0d046c5d029ba91a1ed14da14dca44b68bf2f124cfbaf741c54151fdb3e0750b"
 
 [[package]]
-name = "web"
-version = "0.1.0"
-dependencies = [
- "embedded-graphics-core",
- "embedded-graphics-web-simulator",
- "touchscreen",
- "wasm-bindgen",
- "web-sys",
-]
-
-[[package]]
 name = "web-sys"
 version = "0.3.64"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -836,3 +818,7 @@ dependencies = [
  "embedded-hal 1.0.0-rc.1",
  "embedded-hal-mock",
 ]
+
+[[package]]
+name = "xtask"
+version = "0.1.0"

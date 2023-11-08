@@ -1,0 +1,34 @@
+[package]
+name = "application"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+embedded-graphics.workspace = true
+embedded-graphics-core.workspace = true
+embedded-hal.workspace = true
+
+[target.'cfg(not(target_os = "none"))'.dependencies]
+embedded-graphics-web-simulator.workspace = true
+wasm-bindgen.workspace = true
+web-sys.workspace = true
+touchscreen.workspace = true
+touchscreen.features = ["web_screen"]
+
+[target.'cfg(target_os = "none")'.dependencies]
+embedded-hal-bus.workspace = true
+ili9488.workspace = true
+xpt2046.workspace = true
+cortex-m.workspace = true
+cortex-m-rt.workspace = true
+defmt.workspace = true
+defmt-rtt.workspace = true
+fugit.workspace = true
+panic-probe.workspace = true
+rp2040-boot2.workspace = true
+rp2040-hal.workspace = true
+touchscreen.workspace = true
+touchscreen.features = ["red_screen"]

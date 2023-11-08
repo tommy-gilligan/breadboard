@@ -5,3 +5,15 @@ edition = "2021"
 
 [dependencies]
 embedded-graphics-core = "0.3.3"
+
+embedded-hal = { workspace = true, optional = true }
+ili9488 = { workspace = true, optional = true }
+xpt2046 = { workspace = true, optional = true }
+
+wasm-bindgen = { workspace = true, optional = true }
+embedded-graphics-web-simulator = { workspace = true, optional = true }
+web-sys = { workspace = true, optional = true }
+
+[features]
+red_screen = ["dep:embedded-hal", "dep:ili9488", "dep:xpt2046"]
+web_screen = ["dep:wasm-bindgen", "dep:embedded-graphics-web-simulator", "dep:web-sys"]

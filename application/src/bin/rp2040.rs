@@ -113,7 +113,7 @@ mod embedded {
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
         let mut touchscreen =
-            red_screen::RedScreen::new(lcd_spi_device, lcd_dc, lcd_rst, touch_spi_device, delay);
+            touchscreen::red_screen::RedScreen::new(lcd_spi_device, lcd_dc, lcd_rst, touch_spi_device, delay);
         let mut controller = Controller::new();
         loop {
             timer.delay_ms(10);

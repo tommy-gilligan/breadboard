@@ -18,3 +18,9 @@ pub struct TouchEvent {
 pub trait Touchscreen: DrawTarget + OriginDimensions {
     fn get_touch_event(&mut self) -> Option<TouchEvent>;
 }
+
+#[cfg(feature = "red_screen")]
+pub mod red_screen;
+
+#[cfg(feature = "web_screen")]
+pub mod web_screen;

@@ -1,4 +1,3 @@
-#![no_std]
 use embedded_graphics_core::{
     pixelcolor::Rgb888,
     prelude::{DrawTarget, OriginDimensions, Size},
@@ -6,7 +5,7 @@ use embedded_graphics_core::{
 };
 use embedded_hal::digital::OutputPin;
 use ili9488::Ili9488;
-use touchscreen::{TouchEvent, TouchEventType, Touchscreen};
+use crate::{TouchEvent, TouchEventType, Touchscreen};
 use xpt2046::Xpt2046;
 
 pub struct RedScreen<

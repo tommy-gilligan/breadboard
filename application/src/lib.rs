@@ -61,26 +61,22 @@ mod web {
     use wasm_bindgen::prelude::*;
 
     fn request_animation_frame(f: &Closure<dyn FnMut()>) {
-        web_sys::window()
-            .expect("no global `window` exists")
-            .request_animation_frame(f.as_ref().unchecked_ref())
-            .expect("should register `requestAnimationFrame` OK");
+        web_sys::window().unwrap()
+            .request_animation_frame(f.as_ref().unchecked_ref()).unwrap();
     }
 
     #[wasm_bindgen(start)]
     fn run() {
-        let touchscreen_div = web_sys::window()
-            .expect("no global `window` exists")
-            .document()
-            .unwrap()
-            .get_element_by_id("touchscreen")
-            .unwrap();
-        let mut web_touchscreen = web::Web::new(&touchscreen_div);
+        let touchscreen_div = web_sys::window().unwrap()
+            .document().unwrap()
+            .get_element_by_id("touchscreen").unwrap();
+        let mut web_touchscreen = touchscreen::web_screen::Web::new(&touchscreen_div);
 
         let f = Rc::new(RefCell::new(None));
         let g = f.clone();
 
         let mut controller = super::Controller::new();
+
         *g.borrow_mut() = Some(Closure::new(move || {
             controller.tick(&mut web_touchscreen);
             request_animation_frame(f.borrow().as_ref().unwrap());
