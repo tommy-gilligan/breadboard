@@ -18,6 +18,7 @@ mod embedded {
     use application::Controller;
 
     use core::cell::RefCell;
+    use display_interface_spi::SPIInterface;
 
     use defmt_rtt as _;
     use embedded_hal::delay::DelayUs;
@@ -112,7 +113,13 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let screen = ili9488::Ili9488::new(lcd_spi_device, lcd_dc, lcd_rst, delay);
+        let screen = ili9488::Ili9488::new(
+          SPIInterface::new(lcd_spi_device, lcd_dc),
+          lcd_rst,
+          &mut delay,
+          ili9488::Orientation::PortraitFlipped,
+          ili9488::DisplaySize480x320,
+        ).unwrap();
 
         let mut touchscreen = touchscreen::red_screen::RedScreen::new(
             screen,

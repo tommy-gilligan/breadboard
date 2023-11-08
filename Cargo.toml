@@ -1,7 +1,3 @@
-[workspace]
-members = ["ili9488"]
-resolver = "2"
-
 [package]
 name = "application"
 version = "0.1.0"
@@ -27,7 +23,7 @@ touchscreen = { path = "../touchscreen", features = ["web-screen"] }
 
 [target.'cfg(target_os = "none")'.dependencies]
 embedded-hal-bus = "0.1.0-rc.1"
-ili9488 = { path = "ili9488" }
+ili9488 = { git = "https://github.com/tommy-gilligan/ili9488-rs.git" }
 cortex-m = "0.7"
 cortex-m-rt = "0.7"
 defmt = "0.3"
@@ -37,6 +33,7 @@ panic-probe = { version = "0.3", features = ["print-defmt"] }
 rp2040-boot2 = "0.3"
 rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
 touchscreen = { path = "../touchscreen", features = ["red-screen"] }
+display-interface-spi = { git = "https://github.com/tommy-gilligan/display-interface.git" }
 
 [profile.dev]
 codegen-units = 1
