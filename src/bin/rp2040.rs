@@ -114,10 +114,10 @@ mod embedded {
 
         let mut touchscreen =
             red_screen::RedScreen::new(lcd_spi_device, lcd_dc, lcd_rst, touch_spi_device, delay);
-        let mut controller = Controller;
+        let mut controller = Controller::new();
         loop {
             timer.delay_ms(10);
-            controller.tick(&mut touchscreen).unwrap();
+            controller.tick(&mut touchscreen);
         }
     }
 }
