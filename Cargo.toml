@@ -7,16 +7,16 @@ edition = "2021"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-embedded-graphics = "0.7.1"
-embedded-graphics-core = "0.3.3"
+embedded-graphics = "0.8"
+embedded-graphics-core = "0.4"
 embedded-hal = "1.0.0-rc.1"
 
 [target.'cfg(any(target_family = "unix", target_family = "windows"))'.dependencies]
 touchscreen = { path = "../touchscreen", features = ["sdl-screen"] }
-embedded-graphics-simulator = "0.4.1"
+embedded-graphics-simulator = "0.5"
 
 [target.'cfg(target_family = "wasm")'.dependencies]
-embedded-graphics-web-simulator = "^0.3.0"
+embedded-graphics-web-simulator = { git = "https://github.com/rahul-thakoor/embedded-graphics-web-simulator.git" }
 wasm-bindgen = "0.2.88"
 web-sys = { version = "^0.3.64", features = [ 'Document', 'Element', 'HtmlElement', 'MouseEvent', 'Window' ] }
 touchscreen = { path = "../touchscreen", features = ["web-screen"] }
