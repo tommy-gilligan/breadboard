@@ -35,6 +35,7 @@ rp2040-boot2 = "0.3"
 rp2040-hal = { git = "https://github.com/rp-rs/rp-hal.git", features=["rt", "critical-section-impl", "eh1_0_alpha"] }
 touchscreen = { git = "https://github.com/tommy-gilligan/touchscreen.git", features = ["xpt2046-screen"] }
 display-interface-spi = { git = "https://github.com/therealprof/display-interface.git" }
+mipidsi = { git = "https://github.com/tommy-gilligan/mipidsi.git" }
 
 [profile.dev]
 codegen-units = 1

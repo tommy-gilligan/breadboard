@@ -1,6 +1,6 @@
 #![no_std]
 use core::fmt::Debug;
-use embedded_graphics::pixelcolor::Rgb888;
+use embedded_graphics::pixelcolor::Rgb666;
 use embedded_graphics_core::prelude::DrawTarget;
 
 use embedded_graphics::prelude::Primitive;
@@ -12,19 +12,19 @@ use embedded_graphics_core::{
 };
 use touchscreen::Touchscreen;
 
-const COLORS: [Rgb888; 8] = [
-    Rgb888::new(255, 0, 0),
-    Rgb888::new(0, 255, 0),
-    Rgb888::new(0, 0, 255),
-    Rgb888::new(255, 0, 255),
-    Rgb888::new(0, 255, 255),
-    Rgb888::new(255, 255, 0),
-    Rgb888::new(0, 0, 0),
-    Rgb888::new(255, 255, 255),
+const COLORS: [Rgb666; 8] = [
+    Rgb666::new(255, 0, 0),
+    Rgb666::new(0, 255, 0),
+    Rgb666::new(0, 0, 255),
+    Rgb666::new(255, 0, 255),
+    Rgb666::new(0, 255, 255),
+    Rgb666::new(255, 255, 0),
+    Rgb666::new(0, 0, 0),
+    Rgb666::new(255, 255, 255),
 ];
 
 pub struct Controller {
-    selected_color: Option<Rgb888>,
+    selected_color: Option<Rgb666>,
 }
 
 impl Default for Controller {
@@ -45,7 +45,7 @@ impl Controller {
     where
         T: Touchscreen,
         <T as DrawTarget>::Error: Debug,
-        T: DrawTarget<Color = Rgb888>,
+        T: DrawTarget<Color = Rgb666>,
     {
         let mut x_offset = 0;
 

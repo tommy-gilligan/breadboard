@@ -19,6 +19,18 @@ mod embedded {
 
     use core::cell::RefCell;
     use display_interface_spi::SPIInterface;
+    use embedded_graphics::prelude::Point;
+    use embedded_graphics::prelude::Primitive;
+    use embedded_graphics::primitives::Circle;
+    use embedded_graphics::primitives::PrimitiveStyle;
+    use embedded_graphics::Drawable;
+
+    use defmt::export::display;
+    use embedded_graphics::draw_target::DrawTarget;
+    use embedded_graphics::pixelcolor::Rgb666;
+    use embedded_graphics::pixelcolor::Rgb888;
+    use embedded_graphics::prelude::RgbColor;
+    use mipidsi::{Builder, ColorOrder, Orientation};
 
     use defmt_rtt as _;
     use embedded_hal::delay::DelayUs;
@@ -113,14 +125,11 @@ mod embedded {
         let spi_1_cell = RefCell::new(spi_1);
         let touch_spi_device = RefCellDevice::new_no_delay(&spi_1_cell, touch_cs);
 
-        let screen = ili9488::Ili9488::new(
-            SPIInterface::new(lcd_spi_device, lcd_dc),
-            lcd_rst,
-            &mut delay,
-            ili9488::Orientation::LandscapeFlipped,
-            ili9488::DisplaySize320x480,
-        )
-        .unwrap();
+        let mut screen = Builder::ili9486_rgb666(SPIInterface::new(lcd_spi_device, lcd_dc))
+            .with_color_order(ColorOrder::Bgr)
+            .with_orientation(Orientation::LandscapeInverted(false))
+            .init(&mut delay, Some(lcd_rst))
+            .unwrap();
 
         let mut touchscreen = touchscreen::xpt2046_screen::Xpt2046Screen::new(
             screen,

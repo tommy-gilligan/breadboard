@@ -37,6 +37,7 @@ dependencies = [
  "embedded-hal-bus",
  "fugit",
  "ili9488",
+ "mipidsi",
  "panic-probe",
  "rp2040-boot2",
  "rp2040-hal",
@@ -329,7 +330,7 @@ dependencies = [
 [[package]]
 name = "embedded-graphics-simulator"
 version = "0.5.0"
-source = "git+https://github.com/embedded-graphics/simulator.git#45cf9e9f6f8d7329e62fe4ab2b6acdcbe55a0115"
+source = "git+https://github.com/embedded-graphics/simulator.git#d11431fef3deb4406fe6a226cb1a3bb782cbc418"
 dependencies = [
  "base64",
  "embedded-graphics",
@@ -459,6 +460,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "hash32"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "47d60b12902ba28e2730cd37e95b8c9223af2808df9e902d4df49588d1470606"
+dependencies = [
+ "byteorder",
+]
+
+[[package]]
+name = "heapless"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0bfb9eb618601c89945a70e254898da93b13be0388091d42117462b265bb3fad"
+dependencies = [
+ "hash32",
+ "stable_deref_trait",
+]
+
+[[package]]
 name = "heck"
 version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -570,6 +590,17 @@ checksum = "a92518e98c078586bc6c934028adcca4c92a53d6a958196de835170a01d84e4b"
 dependencies = [
  "adler",
  "autocfg",
+]
+
+[[package]]
+name = "mipidsi"
+version = "0.7.1"
+source = "git+https://github.com/tommy-gilligan/mipidsi.git#217962761b58e0ac60d0378918587ce31cd6b910"
+dependencies = [
+ "display-interface",
+ "embedded-graphics-core",
+ "embedded-hal 1.0.0-rc.1",
+ "heapless",
 ]
 
 [[package]]
