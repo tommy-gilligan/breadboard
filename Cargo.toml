@@ -14,7 +14,7 @@ embedded-hal = "1.0.0-rc.1"
 
 [target.'cfg(any(target_family = "unix", target_family = "windows"))'.dependencies]
 touchscreen = { git = "https://github.com/tommy-gilligan/touchscreen.git", features = ["sdl-screen"] }
-embedded-graphics-simulator = "0.5"
+embedded-graphics-simulator = { git = "https://github.com/embedded-graphics/simulator.git" }
 
 [target.'cfg(target_family = "wasm")'.dependencies]
 embedded-graphics-web-simulator = { git = "https://github.com/rahul-thakoor/embedded-graphics-web-simulator.git" }
