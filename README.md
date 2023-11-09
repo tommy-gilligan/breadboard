@@ -1,8 +1,8 @@
 # TODO
 
 - update readme
-- check licensing
-- split out drivers
+- try using mipidsi crate (needs to be updated for eh1)
+- try using 3 bit color (6x speed?)
 
 yarn
 yarn run serve
