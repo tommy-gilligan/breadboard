@@ -122,10 +122,10 @@ mod embedded {
         )
         .unwrap();
 
-        let mut touchscreen = touchscreen::red_screen::RedScreen::new(
+        let mut touchscreen = touchscreen::xpt2046_screen::Xpt2046Screen::new(
             screen,
             touch_spi_device,
-            touchscreen::red_screen::default_calibration,
+            touchscreen::xpt2046_screen::default_calibration,
         );
         let mut controller = Controller::new();
         loop {

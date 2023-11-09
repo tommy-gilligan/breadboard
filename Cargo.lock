@@ -282,12 +282,12 @@ dependencies = [
 [[package]]
 name = "display-interface"
 version = "0.5.0-alpha.1"
-source = "git+https://github.com/tommy-gilligan/display-interface.git#cc1f7343efa11844a5a7663b105761b8877103b0"
+source = "git+https://github.com/therealprof/display-interface.git#1fa50f132bcce17f971561a4446f1ff9ea3cef2c"
 
 [[package]]
 name = "display-interface-spi"
 version = "0.5.0-alpha.1"
-source = "git+https://github.com/tommy-gilligan/display-interface.git#cc1f7343efa11844a5a7663b105761b8877103b0"
+source = "git+https://github.com/therealprof/display-interface.git#1fa50f132bcce17f971561a4446f1ff9ea3cef2c"
 dependencies = [
  "byte-slice-cast",
  "display-interface",
@@ -486,7 +486,7 @@ checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 [[package]]
 name = "ili9488"
 version = "0.1.0"
-source = "git+https://github.com/tommy-gilligan/ili9488-rs.git#2e1fe6adeeb5c79b94866ea29599568cf8a9ed70"
+source = "git+https://github.com/tommy-gilligan/ili9488-rs.git#63a938531885b8769be3b76f523b62474ea8ce56"
 dependencies = [
  "display-interface",
  "embedded-graphics-core",
@@ -1010,7 +1010,7 @@ dependencies = [
 [[package]]
 name = "touchscreen"
 version = "0.1.0"
-source = "git+https://github.com/tommy-gilligan/touchscreen.git#898ca75f550bf23c7259155a839d24f5fb790656"
+source = "git+https://github.com/tommy-gilligan/touchscreen.git#a5c286eb9bd47d53c4837c0681158c390fc9841d"
 dependencies = [
  "embedded-graphics-core",
  "embedded-graphics-simulator 0.5.0 (git+https://github.com/embedded-graphics/simulator.git)",
