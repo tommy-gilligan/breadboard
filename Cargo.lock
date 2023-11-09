@@ -486,7 +486,7 @@ checksum = "95505c38b4572b2d910cecb0281560f54b440a19336cbbcb27bf6ce6adc6f5a8"
 [[package]]
 name = "ili9488"
 version = "0.1.0"
-source = "git+https://github.com/tommy-gilligan/ili9488-rs.git#63a938531885b8769be3b76f523b62474ea8ce56"
+source = "git+https://github.com/tommy-gilligan/ili9488-rs.git#4e2817aac237811c0dd9715ef4595f3515d58d6c"
 dependencies = [
  "display-interface",
  "embedded-graphics-core",

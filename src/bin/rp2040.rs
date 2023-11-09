@@ -117,8 +117,8 @@ mod embedded {
             SPIInterface::new(lcd_spi_device, lcd_dc),
             lcd_rst,
             &mut delay,
-            ili9488::Orientation::PortraitFlipped,
-            ili9488::DisplaySize480x320,
+            ili9488::Orientation::LandscapeFlipped,
+            ili9488::DisplaySize320x480,
         )
         .unwrap();
 
